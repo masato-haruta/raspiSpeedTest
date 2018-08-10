@@ -53,6 +53,10 @@
 
 > `0 * * * * /home/pi/raspiSpeedTest/run.sh`
 
+* `sudo vim /etc/rsyslog.conf`
+* `#cron.* /var/log/cron.log`
+* `sudo /etc/init.d/rsyslog restart`
+* `sudo cat /var/log/cron.log`
 
 ### Graph the data
 
