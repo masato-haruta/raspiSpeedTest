@@ -5,7 +5,7 @@
 
 ## Directory-based project format
 gsheet_add.cfg
-
+.gitignore
 
 
 .DS_Store
