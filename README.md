@@ -3,11 +3,6 @@
 
 # Setup
 
-### Clone this project
-
-* `git clone https://github.com/masato-haruta/raspiSpeedTest.git`
-* `cd raspiSpeedTest`
-
 ## Prep your Raspberry Pi for doing the speedtest, per the article 
 
 * `sudo apt-get install python-pip`
@@ -34,6 +29,8 @@
 * Create a gdocs app with oauth creds via https://console.developers.google.com/project and for that app: 
 	* Create an OAuth 2.0 client ID
 	* Enable Google Drive API
+* Rename gsheet.cfg to gsheet_add.cfg
+    * `mv gsheet.cfg gsheet_add.cfg`
 * Update `gsheet_add.cfg` with sheet id and oauth client + secret
 * Get an oauth token
 	* `python get_auth_token.py`
@@ -54,7 +51,7 @@
 * `crontab -e`
 * In the resulting editor, add the following line: 
 
-> `0 * * * * /home/pi/raspberrypi-speedtest/run.sh`
+> `0 * * * * /home/pi/raspiSpeedTest/run.sh`
 
 
 ### Graph the data
