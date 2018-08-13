@@ -15,6 +15,7 @@
 
 ### Install google api client for python
 
+* `git clone https://github.com/google/gdata-python-client.git`
 * `cd lib/gdata-python-client; sudo python ./setup.py install`
 
 
