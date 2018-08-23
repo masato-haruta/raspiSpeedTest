@@ -1,8 +1,10 @@
+# coding:utf-8
 import subprocess
 import shutil
 import json
 import os.path
 from argparse import ArgumentParser
+from statistics import mean
 
 
 # 空き容量(GB単位)確認。２GB以上が必要
@@ -51,14 +53,13 @@ def execTests(command, testCount):
     unit = "" # 計測単位
 
     for i in range(testCount):
-        command = "echo 24.02 MB/sec" # デバッグ用
         proc = subprocess.Popen(command, shell = True, stdin = subprocess.PIPE, stdout = subprocess.PIPE, stderr = subprocess.PIPE)
         stdoutData, stderrData = proc.communicate()  # 処理実行を待つ
         if len(stderrData) > 0:
             print("{} execute error:".format(command) + stderrData.decode())
             continue
 
-        parsedResultList = parseResultStr(stdoutData.decode())
+        parsedResultList = parseResultStr(stdoutData.decode().strip())
         unit = parsedResultList[1] # 単位(MB/sec)取得
 
         scoredList.append(float(parsedResultList[0])) # 値取得しListに追加
@@ -68,7 +69,7 @@ def execTests(command, testCount):
 # 測定結果のAvr, Max, MinをJsonで返す
 def getSortResultWithJson(resultList):
     parseResultDict = {}
-    parseResultDict['average'] = sum(resultList) / len(resultList)
+    parseResultDict['average'] = mean(resultList)
     parseResultDict['max'] = max(resultList)
     parseResultDict['min'] = min(resultList)
     parseResultDict['test_count'] = len(resultList)
@@ -82,7 +83,7 @@ if __name__ == '__main__':
     isExistTarget(parsedOpts.target)
 
     # 指定試行回数hdparmを実行し計測単位取得及び、計測結果リストを取得。
-    command = "sudo hdparm -t {0} | awk {1}".format(parsedOpts.target, '{print $10, $11}')
+    command = "sudo hdparm -t {0} | sed -e '1d' | awk {1}".format(parsedOpts.target, '\'{print $11, $12}\'')
     readResultList, readTestUnit = execTests(command, getTestCount(parsedOpts.number))
 
     # 読み込み速度Avr, Max, Min, 試行回数をJsonで返す
@@ -92,12 +93,12 @@ if __name__ == '__main__':
     isOverEmptyDiskSpace() # コマンド実行可能かをディスク空き容量確認
     # 指定試行回数ddを実行し結果をリストに格納
     savePath = "/tmp/raspi_write_test.tmp"
-    command = "time dd if=/dev/zero of={0} ibs=1M obs=1M count=1024 | awk {1}".format(savePath, '{print $10,  $11}')
+    command = "(time dd if=/dev/zero of={0} ibs=1M obs=1M count=1024) 2>&1 | sed -e '1, 2d' | awk {1}".format(savePath, '\'{print $10, $11}\'')
     writeResultList, writeTestUnit = execTests(command, getTestCount(parsedOpts.number))
-    #os.remove(savePath) # 1GBのファイルを削除
+    os.remove(savePath) # 1GBのファイルを削除
 
     # 書き込み速度Max, Min, Avr結果をJsonで返す
     jsonWriteTestResult = getSortResultWithJson(writeResultList)
 
-    print(jsonReadTestResult)
-    print(jsonWriteTestResult)
+    print("read speed result:" + jsonReadTestResult)
+    print("write speed result:" + jsonWriteTestResult)
