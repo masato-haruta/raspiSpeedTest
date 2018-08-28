@@ -36,7 +36,7 @@ class SpeedTestUtil:
             unit = parsed_result_list[1]  # 単位(MB/sec)取得
             try:
                 scored_list.append(float(parsed_result_list[0]))  # 値取得しListに追加
-            except ValueError as e:
+            except ValueError:
                 raise CommandResultParseException("コマンド実行結果を正しくパースできていません: " + stdout_data.decode())
 
         return scored_list, unit
