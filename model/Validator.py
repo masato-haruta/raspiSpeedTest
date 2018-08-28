@@ -1,7 +1,7 @@
 # coding:utf-8
 import os
 
-from ValidationConst import ValidateConst
+from model.ValidationConst import ValidateConst
 from exception.DiskFreeSpaceException import DiskFreeSpaceException
 from exception.TargetDirectoryNotFoundException import TargetDirectoryNotFoundException
 import util.Utility

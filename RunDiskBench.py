@@ -1,5 +1,5 @@
 # coding:utf-8
-import Parser
+from model import Parser
 from exception.CommandResultParseException import CommandResultParseException
 from util.Utility import SpeedTestUtil
 from exception.DiskFreeSpaceException import DiskFreeSpaceException

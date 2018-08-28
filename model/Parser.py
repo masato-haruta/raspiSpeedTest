@@ -3,7 +3,7 @@ import json
 from argparse import ArgumentParser
 from statistics import mean
 
-from ValidationConst import ValidateConst
+from model.ValidationConst import ValidateConst
 import util.Utility
 
 
@@ -11,8 +11,7 @@ class SpeedTestParser:
     # コマンドオプション解析
     @staticmethod
     def parse_options():
-        usage = 'python {} [-n] [-t </dev/mmcblk0>] [--help]' \
-            .format(__file__)
+        usage = 'python RunDiskBench.py [-n] [-t </dev/mmcblk0>] [--help]'
         argument_parser = ArgumentParser(usage=usage)
         argument_parser.add_argument('-n', '--number',
                                      type=int,

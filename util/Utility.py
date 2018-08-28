@@ -3,9 +3,7 @@ import shutil
 import subprocess
 import os
 
-import Parser
-import ValidationConst
-import Validator
+from model import Parser, Validator, ValidationConst
 from exception.CommandResultParseException import CommandResultParseException
 from exception.DiskFreeSpaceException import DiskFreeSpaceException
 from exception.TargetDirectoryNotFoundException import TargetDirectoryNotFoundException
