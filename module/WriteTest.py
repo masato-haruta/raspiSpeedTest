@@ -1,5 +1,5 @@
 # coding:utf-8
-from BaseTest import BaseTest
+from module.BaseTest import BaseTest
 from exception.CommandResultParseException import CommandResultParseException
 from exception.DiskFreeSpaceException import DiskFreeSpaceException
 import model.SpeedTestValidator

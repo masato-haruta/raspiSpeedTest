@@ -1,6 +1,6 @@
 # coding:utf-8
-from ReadTest import ReadTest
-from WriteTest import WriteTest
+from module.ReadTest import ReadTest
+from module.WriteTest import WriteTest
 from model import Parser
 from exception.CommandResultParseException import CommandResultParseException
 from exception.DiskFreeSpaceException import DiskFreeSpaceException
