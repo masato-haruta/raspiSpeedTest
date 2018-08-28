@@ -11,6 +11,10 @@ class ReadTest(BaseTest):
     # 読み込み計測
     @staticmethod
     def exec_read_test_if_needed(parsed_options):
+        """
+        :type: list
+        :rtype: csv or json
+        """
         if parsed_options.writeTestOnly:
             return
         try:

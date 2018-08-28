@@ -5,9 +5,13 @@ from exception.CommandResultParseException import CommandResultParseException
 
 
 class BaseTest:
-    # 指定回数commandを回し、結果をListで返す
+    # 指定回数commandを実行し、結果をListと計測単位で返す
     @staticmethod
     def exec_tests(command, trial_count):
+        """
+        :type: str, int
+        :rtype: list, str
+        """
         scored_list = []  # 計測結果格納用
         unit = ""  # 計測単位
 

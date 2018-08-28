@@ -11,6 +11,10 @@ class WriteTest(BaseTest):
     # 書き込み計測
     @staticmethod
     def exec_write_test_if_needed(parsed_options):
+        """
+        :type: list
+        :rtype: csv or json
+        """
         if parsed_options.readTestOnly:
             return
         try:

@@ -18,11 +18,19 @@ class SpeedTestUtil:
     # ディスクの空き容量をGB単位で返す(int)
     @staticmethod
     def get_free_disk_space_gb():
+        """
+
+        :rtype: int
+        """
         return int(shutil.disk_usage('./').free / 1024 / 1024 / 1024)
 
     # 試行回数を返す
     @staticmethod
     def get_trial_count(number):
+        """
+        :type: int
+        :rtype: int
+        """
         if ValidationConst.ValidateConst.MIN_TRIAL_COUNT.value <= number <= ValidationConst.ValidateConst.MAX_TRIAL_COUNT.value:
             return number
         else:
@@ -36,10 +44,18 @@ class SpeedTestUtil:
     # 読み込み実行コマンドを返す
     @staticmethod
     def get_read_test_cmd(parsed_options):
+        """
+        :type: list
+        :rtype: str
+        """
         return SpeedTestUtil.read_command_debug if parsed_options.debug else SpeedTestUtil.read_command.format(
             parsed_options.target, '\'{print $11, $12}\'')
 
     # 書き込み実行コマンドを返す
     @staticmethod
     def get_write_test_cmd(is_debug):
+        """
+        :type: list
+        :rtype: str
+        """
         return SpeedTestUtil.write_command_debug if is_debug else SpeedTestUtil.write_command

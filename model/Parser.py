@@ -11,6 +11,9 @@ class SpeedTestParser:
     # コマンドオプション解析
     @staticmethod
     def parse_options():
+        """
+        :rtype: list
+        """
         usage = 'python RunDiskBench.py [-n] [-t </dev/mmcblk0>] [--help]'
         argument_parser = ArgumentParser(usage=usage)
         argument_parser.add_argument('-n', '--number',
@@ -45,12 +48,12 @@ class SpeedTestParser:
     # 測定結果のAvr, Max, Min, 試行回数を指定フォーマットで返す(デフォルトはJson)
     @staticmethod
     def parse_result(result_list, parsed_options, unit):
-        parsed_result = {}
-        parsed_result['average'] = mean(result_list)
-        parsed_result['max'] = max(result_list)
-        parsed_result['min'] = min(result_list)
-        parsed_result['unit'] = unit
-        parsed_result['trial_count'] = len(result_list)
+        """
+        :type: list, list, str
+        :rtype: json or csv
+        """
+        parsed_result = {'average': mean(result_list), 'max': max(result_list), 'min': min(result_list), 'unit': unit,
+                         'trial_count': len(result_list)}
 
         # 所定のフォーマットにする
         if parsed_options.csv:
