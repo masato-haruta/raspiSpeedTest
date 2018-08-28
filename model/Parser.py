@@ -12,7 +12,7 @@ class SpeedTestParser:
     @staticmethod
     def parse_options():
         """
-        :rtype: list
+        :rtype: object
         """
         usage = 'python RunDiskBench.py [-n] [-t </dev/mmcblk0>] [--help]'
         argument_parser = ArgumentParser(usage=usage)

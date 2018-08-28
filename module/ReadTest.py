@@ -22,7 +22,7 @@ class ReadTest(BaseTest):
             model.SpeedTestValidator.SpeedTestValidator.read_test_target_validate(parsed_options.target)
 
             # 指定試行回数hdparmを実行し計測単位取得及び、計測結果リストを取得。
-            result_list, result_unit = BaseTest.exec_tests(SpeedTestUtil.get_read_test_cmd(parsed_options),
+            result_list, result_unit = BaseTest.exec_tests(SpeedTestUtil.get_read_test_cmd(parsed_options.debug, parsed_options.target),
                                                            parsed_options.number)
 
             # 読み込み速度Avr, Max, Min, 試行回数を指定フォーマットで返す

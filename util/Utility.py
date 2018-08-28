@@ -43,13 +43,12 @@ class SpeedTestUtil:
 
     # 読み込み実行コマンドを返す
     @staticmethod
-    def get_read_test_cmd(parsed_options):
+    def get_read_test_cmd(is_debug, target):
         """
         :type: list
         :rtype: str
         """
-        return SpeedTestUtil.read_command_debug if parsed_options.debug else SpeedTestUtil.read_command.format(
-            parsed_options.target, '\'{print $11, $12}\'')
+        return SpeedTestUtil.read_command_debug if is_debug else SpeedTestUtil.read_command.format(target, '\'{print $11, $12}\'')
 
     # 書き込み実行コマンドを返す
     @staticmethod
