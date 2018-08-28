@@ -1,16 +1,17 @@
 # coding:utf-8
+from ReadTest import ReadTest
+from WriteTest import WriteTest
 from model import Parser
 from exception.CommandResultParseException import CommandResultParseException
-from util.Utility import SpeedTestUtil
 from exception.DiskFreeSpaceException import DiskFreeSpaceException
 from exception.TargetDirectoryNotFoundException import TargetDirectoryNotFoundException
 
 if __name__ == '__main__':
-    parsedOpts = Parser.SpeedTestParser().parse_options() # コマンドオプション解析(試行回数と対象ディレクトリを受け取る)
+    parsedOpts = Parser.SpeedTestParser().parse_options()  # コマンドオプション解析
 
     try:
-        print("ReadTestResult:" + str(SpeedTestUtil().exec_read_test_if_needed(parsedOpts)))
-        print("WriteTestResult:" + str(SpeedTestUtil().exec_write_test_if_needed(parsedOpts)))
+        print("ReadTestResult:" + str(ReadTest().exec_read_test_if_needed(parsedOpts)))
+        print("WriteTestResult:" + str(WriteTest().exec_write_test_if_needed(parsedOpts)))
     except TargetDirectoryNotFoundException as e:
         print(e)
     except DiskFreeSpaceException as e:

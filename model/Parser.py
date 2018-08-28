@@ -44,11 +44,12 @@ class SpeedTestParser:
 
     # 測定結果のAvr, Max, Min, 試行回数を指定フォーマットで返す(デフォルトはJson)
     @staticmethod
-    def parse_result(result_list, parsed_options):
+    def parse_result(result_list, parsed_options, unit):
         parsed_result = {}
         parsed_result['average'] = mean(result_list)
         parsed_result['max'] = max(result_list)
         parsed_result['min'] = min(result_list)
+        parsed_result['unit'] = unit
         parsed_result['trial_count'] = len(result_list)
 
         # 所定のフォーマットにする
