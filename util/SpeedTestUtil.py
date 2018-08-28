@@ -3,9 +3,9 @@ import shutil
 import subprocess
 import os
 
-from SpeedTestParser import SpeedTestParser
-from ValidationConst import ValidateConst
-from Validator import Validator
+import SpeedTestParser
+import ValidationConst
+import Validator
 from exception.CommandResultParseException import CommandResultParseException
 from exception.DiskFreeSpaceException import DiskFreeSpaceException
 from exception.TargetDirectoryNotFoundException import TargetDirectoryNotFoundException
@@ -51,10 +51,10 @@ class SpeedTestUtil:
     # 試行回数取得
     @staticmethod
     def get_trial_count(number):
-        if ValidateConst.MIN_TRIAL_COUNT.value <= number <= ValidateConst.MAX_TRIAL_COUNT.value:
+        if ValidationConst.ValidateConst.MIN_TRIAL_COUNT.value <= number <= ValidationConst.ValidateConst.MAX_TRIAL_COUNT.value:
             return number
         else:
-            return ValidateConst.DEFAULT_TRIAL_COUNT.value
+            return ValidationConst.ValidateConst.DEFAULT_TRIAL_COUNT.value
 
     # 書き込み計測用テストファイル削除
     def delete_testfile_if_needed(self):
@@ -68,14 +68,14 @@ class SpeedTestUtil:
             return
         try:
             # 指定ディレクトリ存在確認
-            Validator.read_test_target_validate(parsed_options.target)
+            Validator.Validator.read_test_target_validate(parsed_options.target)
 
             # 指定試行回数hdparmを実行し計測単位取得及び、計測結果リストを取得。
             #SpeedTestUtil.read_command = SpeedTestUtil.read_command.format(parsedOpts.target, '\'{print $11, $12}\'')
             result_list, result_unit = SpeedTestUtil.exec_tests(SpeedTestUtil.read_command, parsed_options.number)
 
             # 読み込み速度Avr, Max, Min, 試行回数をJsonで返す
-            return SpeedTestParser.parse_result(result_list)
+            return SpeedTestParser.SpeedTestParser.parse_result(result_list, parsed_options)
         except TargetDirectoryNotFoundException as e:
             raise TargetDirectoryNotFoundException(e)
         except CommandResultParseException as e:
@@ -88,13 +88,13 @@ class SpeedTestUtil:
             return
         try:
             # コマンド実行可能かをディスク空き容量確認
-            Validator.write_test_disk_space_validate()
+            Validator.Validator.write_test_disk_space_validate()
 
             # 指定試行回数ddを実行し結果をリストに格納
             result_list, result_unit = SpeedTestUtil().exec_tests(SpeedTestUtil.write_command, parsed_options.number)
 
             # 書き込み速度Max, Min, Avr結果をJsonで返す
-            return SpeedTestParser.parse_result(result_list)
+            return SpeedTestParser.SpeedTestParser.parse_result(result_list, parsed_options)
         except DiskFreeSpaceException as e:
             raise DiskFreeSpaceException(e)
         except CommandResultParseException as e:

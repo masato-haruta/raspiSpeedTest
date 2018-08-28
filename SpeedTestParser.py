@@ -4,7 +4,7 @@ from argparse import ArgumentParser
 from statistics import mean
 
 from ValidationConst import ValidateConst
-from util.SpeedTestUtil import SpeedTestUtil
+import util.SpeedTestUtil
 
 
 class SpeedTestParser:
@@ -36,11 +36,11 @@ class SpeedTestParser:
                                action='store_true',
                                help='default test result output, in JSON format')
         parsed_opts = argument_parser.parse_args()
-        parsed_opts.number = SpeedTestUtil.get_trial_count(parsed_opts.number)
+        parsed_opts.number = util.SpeedTestUtil.SpeedTestUtil.get_trial_count(parsed_opts.number)
 
         return parsed_opts
 
-    # 測定結果のAvr, Max, Minを指定フォーマットで返す(デフォルトはJson)
+    # 測定結果のAvr, Max, Min, 試行回数を指定フォーマットで返す(デフォルトはJson)
     @staticmethod
     def parse_result(result_list, parsed_options):
         parsed_result = {}
@@ -51,6 +51,6 @@ class SpeedTestParser:
 
         # 所定のフォーマットにする
         if parsed_options.csv:
-            return ','.join(parsed_result)
+            return ','.join(map(str, list(parsed_result.values())))
         else:
             return json.dumps(parsed_result)
