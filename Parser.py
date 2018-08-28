@@ -4,7 +4,7 @@ from argparse import ArgumentParser
 from statistics import mean
 
 from ValidationConst import ValidateConst
-import util.SpeedTestUtil
+import util.Utility
 
 
 class SpeedTestParser:
@@ -35,8 +35,11 @@ class SpeedTestParser:
         argument_parser.add_argument('--json', '--json',
                                action='store_true',
                                help='default test result output, in JSON format')
+        argument_parser.add_argument('-d', '--debug',
+                                     action='store_true',
+                                     help='debug mode. command replace "echo dd, echo hdparm" result')
         parsed_opts = argument_parser.parse_args()
-        parsed_opts.number = util.SpeedTestUtil.SpeedTestUtil.get_trial_count(parsed_opts.number)
+        parsed_opts.number = util.Utility.SpeedTestUtil.get_trial_count(parsed_opts.number)
 
         return parsed_opts
 

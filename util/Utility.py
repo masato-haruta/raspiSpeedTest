@@ -3,7 +3,7 @@ import shutil
 import subprocess
 import os
 
-import SpeedTestParser
+import Parser
 import ValidationConst
 import Validator
 from exception.CommandResultParseException import CommandResultParseException
@@ -13,12 +13,12 @@ from exception.TargetDirectoryNotFoundException import TargetDirectoryNotFoundEx
 class SpeedTestUtil:
     save_path = "/tmp/raspi_write_test.tmp"  # 書き込み計測時ファイル保存パス
 
-    #read_command = "sudo hdparm -t {0} | sed -e '1d' | awk {1}"
-    read_command = "echo 21.91 MB/sec"
+    read_command = "sudo hdparm -t {0} | sed -e '1d' | awk {1}"
+    read_command_debug = "echo 21.91 MB/sec"
 
-    #write_command = "(time dd if=/dev/zero of={0} ibs=1m obs=1m count=1024) 2>&1 | sed -e '1, 2d' | awk {1}".format(
-    #     save_path, '\'{print $10, $11}\'')
-    write_command = "echo 14.45 MB/sec"
+    write_command = "(time dd if=/dev/zero of={0} ibs=1m obs=1m count=1024) 2>&1 | sed -e '1, 2d' | awk {1}".format(
+         save_path, '\'{print $10, $11}\'')
+    write_command_debug = "echo 14.45 MB/sec"
 
     # 指定回数commandを回し、結果をListで返す
     @staticmethod
@@ -71,11 +71,15 @@ class SpeedTestUtil:
             Validator.Validator.read_test_target_validate(parsed_options.target)
 
             # 指定試行回数hdparmを実行し計測単位取得及び、計測結果リストを取得。
-            #SpeedTestUtil.read_command = SpeedTestUtil.read_command.format(parsedOpts.target, '\'{print $11, $12}\'')
+            SpeedTestUtil.read_command = SpeedTestUtil.read_command.format(parsed_options.target, '\'{print $11, $12}\'')
+
+            # debugオプション時はecho結果を渡す
+            if parsed_options.debug:
+                SpeedTestUtil.read_command = SpeedTestUtil.read_command_debug
             result_list, result_unit = SpeedTestUtil.exec_tests(SpeedTestUtil.read_command, parsed_options.number)
 
             # 読み込み速度Avr, Max, Min, 試行回数をJsonで返す
-            return SpeedTestParser.SpeedTestParser.parse_result(result_list, parsed_options)
+            return Parser.SpeedTestParser.parse_result(result_list, parsed_options)
         except TargetDirectoryNotFoundException as e:
             raise TargetDirectoryNotFoundException(e)
         except CommandResultParseException as e:
@@ -90,11 +94,15 @@ class SpeedTestUtil:
             # コマンド実行可能かをディスク空き容量確認
             Validator.Validator.write_test_disk_space_validate()
 
+            # debugオプション時はecho結果を渡す
+            if parsed_options.debug:
+                SpeedTestUtil.write_command = SpeedTestUtil.write_command_debug
+
             # 指定試行回数ddを実行し結果をリストに格納
             result_list, result_unit = SpeedTestUtil().exec_tests(SpeedTestUtil.write_command, parsed_options.number)
 
             # 書き込み速度Max, Min, Avr結果をJsonで返す
-            return SpeedTestParser.SpeedTestParser.parse_result(result_list, parsed_options)
+            return Parser.SpeedTestParser.parse_result(result_list, parsed_options)
         except DiskFreeSpaceException as e:
             raise DiskFreeSpaceException(e)
         except CommandResultParseException as e:

@@ -1,12 +1,12 @@
 # coding:utf-8
-import SpeedTestParser
+import Parser
 from exception.CommandResultParseException import CommandResultParseException
-from util.SpeedTestUtil import SpeedTestUtil
+from util.Utility import SpeedTestUtil
 from exception.DiskFreeSpaceException import DiskFreeSpaceException
 from exception.TargetDirectoryNotFoundException import TargetDirectoryNotFoundException
 
 if __name__ == '__main__':
-    parsedOpts = SpeedTestParser.SpeedTestParser().parse_options() # コマンドオプション解析(試行回数と対象ディレクトリを受け取る)
+    parsedOpts = Parser.SpeedTestParser().parse_options() # コマンドオプション解析(試行回数と対象ディレクトリを受け取る)
 
     try:
         print("ReadTestResult:" + str(SpeedTestUtil().exec_read_test_if_needed(parsedOpts)))
