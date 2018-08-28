@@ -7,7 +7,7 @@ from exception.TargetDirectoryNotFoundException import TargetDirectoryNotFoundEx
 import util.Utility
 
 
-class Validator:
+class SpeedTestValidator:
     # 読み込みテスト用指定ディレクトリ存在確認
     @staticmethod
     def read_test_target_validate(target):
