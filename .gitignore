@@ -9,3 +9,5 @@ gsheet_add.cfg
 
 
 .DS_Store
+.idea
+__pycache__/
