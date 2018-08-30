@@ -1,6 +1,8 @@
 
 # raspberrypi-speedtest
 
+inspire https://github.com/scottvlaminck/raspberrypi-speedtest
+
 # Setup
 
 ## Prep your Raspberry Pi for doing the speedtest, per the article 
