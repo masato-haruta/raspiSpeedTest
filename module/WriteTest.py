@@ -26,8 +26,6 @@ class WriteTest(BaseTest):
             # 実行結果から必要部分をパースして取得
             parsed_results, unit = model.Parser.SpeedTestParser.parse_write_test_results(result_list)
 
-            print(parsed_results)
-            print(unit)
             # 書き込み速度Max, Min, Avr結果を指定フォーマットで返す
             return model.Parser.SpeedTestParser.parse_result(parsed_results, parsed_options, unit)
         except DiskFreeSpaceException as e:
