@@ -73,8 +73,8 @@ class SpeedTestParser:
         for i in range(len(cmd_results)):
             try:
                 tmp_list = cmd_results[i].split(" ")
-                parsed_results.append(float(tmp_list[10]))
-                unit = tmp_list[11]
+                parsed_results.append(float(tmp_list[14]))
+                unit = tmp_list[15]
             except CommandResultParseException:
                 raise CommandResultParseException("コマンド実行結果を正しくパースできていません: " + cmd_results)
         return parsed_results, unit

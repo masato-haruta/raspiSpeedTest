@@ -8,7 +8,7 @@ from model import ValidationConst
 class SpeedTestUtil:
     save_path = "/tmp/raspi_write_test.tmp"  # 書き込み計測時ファイル保存パス
 
-    read_command = "sudo hdparm -t {0} | sed -e '1d'"
+    read_command = "sudo hdparm -t {0} | sed -e '1, 2d'"
     read_command_debug = "echo Timing buffered disk reads:  36 MB in  3.13 seconds =  11.48 MB/sec"
 
     write_command = "dd if=/dev/zero of={0} ibs=1M obs=1M count=1024 2>&1 | sed -e {1}".format(save_path, "'1, 2d'")
