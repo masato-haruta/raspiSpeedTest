@@ -13,7 +13,6 @@ class BaseTest:
         :rtype: list, str
         """
         cmd_result_list = []  # 計測結果格納用
-        unit = ""  # 計測単位
 
         for i in range(trial_count):
             process = subprocess.Popen(command, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE,
