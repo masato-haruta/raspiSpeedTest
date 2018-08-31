@@ -12,7 +12,7 @@ class BaseTest:
         :type: str, int
         :rtype: list, str
         """
-        scored_list = []  # 計測結果格納用
+        cmd_result_list = []  # 計測結果格納用
         unit = ""  # 計測単位
 
         for i in range(trial_count):
@@ -22,12 +22,5 @@ class BaseTest:
             if len(stderr_data) > 0:
                 print("{} execute error:".format(command) + stderr_data.decode())
                 continue
-
-            parsed_result_list = stdout_data.decode().strip().split(" ")
-            unit = parsed_result_list[1]  # 単位(MB/sec)取得
-            try:
-                scored_list.append(float(parsed_result_list[0]))  # 値取得しListに追加
-            except ValueError:
-                raise CommandResultParseException("コマンド実行結果を正しくパースできていません: " + stdout_data.decode())
-
-        return scored_list, unit
+            cmd_result_list.append(stdout_data.decode())  # 値取得しListに追加
+        return cmd_result_list

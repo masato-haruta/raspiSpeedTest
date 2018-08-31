@@ -3,6 +3,7 @@ import json
 from argparse import ArgumentParser
 from statistics import mean
 
+from exception.CommandResultParseException import CommandResultParseException
 from model.ValidationConst import ValidateConst
 import util.Utility
 
@@ -60,3 +61,37 @@ class SpeedTestParser:
             return ','.join(map(str, list(parsed_result.values())))
         else:
             return json.dumps(parsed_result)
+
+    # Read測定結果から必要な部分を取り出して返す
+    @staticmethod
+    def parse_read_test_results(cmd_results):
+        """
+        :type: list
+        :rtype: list, str
+        """
+        parsed_results = []
+        for i in range(len(cmd_results)):
+            try:
+                tmp_list = cmd_results[i].split(" ")
+                parsed_results.append(float(tmp_list[10]))
+                unit = tmp_list[11]
+            except CommandResultParseException:
+                raise CommandResultParseException("コマンド実行結果を正しくパースできていません: " + cmd_results)
+        return parsed_results, unit
+
+    # Write測定結果から必要な部分を取り出して返す
+    @staticmethod
+    def parse_write_test_results(cmd_results):
+        """
+        :type: list
+        :rtype: list, str
+        """
+        parsed_results = []
+        for i in range(len(cmd_results)):
+            try:
+                tmp_list = cmd_results[i].split(" ")
+                parsed_results.append(float(tmp_list[9]))
+                unit = tmp_list[10]
+            except CommandResultParseException:
+                raise CommandResultParseException("コマンド実行結果を正しくパースできていません: " + cmd_results)
+        return parsed_results, unit

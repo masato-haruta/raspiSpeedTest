@@ -21,12 +21,14 @@ class ReadTest(BaseTest):
             # 指定ディレクトリ存在確認
             model.SpeedTestValidator.SpeedTestValidator.read_test_target_validate(parsed_options.target)
 
-            # 指定試行回数hdparmを実行し計測単位取得及び、計測結果リストを取得。
-            result_list, result_unit = BaseTest.exec_tests(SpeedTestUtil.get_read_test_cmd(parsed_options.debug, parsed_options.target),
+            # 指定試行回数hdparm実行結果リストを取得。
+            result_list = BaseTest.exec_tests(SpeedTestUtil.get_read_test_cmd(parsed_options.debug, parsed_options.target),
                                                            parsed_options.number)
+            # 実行結果から必要部分をパースして取得
+            parsed_results, unit = model.Parser.SpeedTestParser.parse_read_test_results(result_list)
 
             # 読み込み速度Avr, Max, Min, 試行回数を指定フォーマットで返す
-            return model.Parser.SpeedTestParser.parse_result(result_list, parsed_options, result_unit)
+            return model.Parser.SpeedTestParser.parse_result(parsed_results, parsed_options, unit)
         except TargetDirectoryNotFoundException as e:
             raise TargetDirectoryNotFoundException(e)
         except CommandResultParseException as e:
