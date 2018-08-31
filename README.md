@@ -1,6 +1,8 @@
 
 # raspberrypi-speedtest
 
+inspire https://github.com/scottvlaminck/raspberrypi-speedtest
+
 # Setup
 
 ## Prep your Raspberry Pi for doing the speedtest, per the article 
@@ -64,7 +66,8 @@
 * Update the spreadsheet to graph the data 
 
 
-
+### Disk IO Bench
+* `python RunDiskBench.py -n 3 -t '/dev/mmcblk0'`
 
 
 
