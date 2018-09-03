@@ -62,26 +62,9 @@ class SpeedTestParser:
         else:
             return json.dumps(parsed_result)
 
-    # Read測定結果から必要な部分を取り出して返す
+    # 測定結果から必要な部分を取り出して返す
     @staticmethod
-    def parse_read_test_results(cmd_results):
-        """
-        :type: list
-        :rtype: list, str
-        """
-        parsed_results = []
-        for i, cmd_result in  enumerate(cmd_results):
-            try:
-                tmp_list = cmd_result.split(" ")
-                parsed_results.append(float(tmp_list[14]))
-                unit = tmp_list[15]
-            except CommandResultParseException:
-                raise CommandResultParseException("コマンド実行結果を正しくパースできていません: " + cmd_results)
-        return parsed_results, unit
-
-    # Write測定結果から必要な部分を取り出して返す
-    @staticmethod
-    def parse_write_test_results(cmd_results):
+    def parse_cmd_results(cmd_results, result_index, result_unit_index):
         """
         :type: list
         :rtype: list, str
@@ -90,8 +73,8 @@ class SpeedTestParser:
         for i, cmd_result in enumerate(cmd_results):
             try:
                 tmp_list = cmd_result.split(" ")
-                parsed_results.append(float(tmp_list[9]))
-                unit = tmp_list[10]
+                parsed_results.append(float(tmp_list[result_index]))
+                unit = tmp_list[result_unit_index]
             except CommandResultParseException:
-                raise CommandResultParseException("コマンド実行結果を正しくパースできていません: " + cmd_results)
+                raise CommandResultParseException("コマンド実行結果を正しくパースできていません: " + cmd_result)
         return parsed_results, unit

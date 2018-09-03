@@ -3,6 +3,7 @@ from module.BaseTest import BaseTest
 from exception.DiskFreeSpaceException import DiskFreeSpaceException
 import model.SpeedTestValidator
 import model.Parser
+import model.ValidationConst
 from util.Utility import SpeedTestUtil
 
 
@@ -24,7 +25,7 @@ class WriteTest(BaseTest):
             result_list = BaseTest.exec_tests(SpeedTestUtil.get_write_test_cmd(parsed_options.debug), parsed_options.number)
 
             # 実行結果から必要部分をパースして取得
-            parsed_results, unit = model.Parser.SpeedTestParser.parse_write_test_results(result_list)
+            parsed_results, unit = model.Parser.SpeedTestParser.parse_cmd_results(result_list, model.ValidationConst.ValidateConst.WRITE_TEST_RESULT_INDEX.value, model.ValidationConst.ValidateConst.WRITE_TEST_RESULT_UNIT_INDEX.value)
 
             # 書き込み速度Max, Min, Avr結果を指定フォーマットで返す
             return model.Parser.SpeedTestParser.parse_result(parsed_results, parsed_options, unit)

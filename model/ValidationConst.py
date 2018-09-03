@@ -6,3 +6,7 @@ class ValidateConst(Enum):
     MAX_TRIAL_COUNT = 10 # 最大試行回数
     MIN_TRIAL_COUNT = 1 # 最低試行回数
     DEFAULT_TRIAL_COUNT = 3 # デフォルト試行回数
+    WRITE_TEST_RESULT_INDEX = 9 # WriteTest数値結果格納Index
+    WRITE_TEST_RESULT_UNIT_INDEX = 10 # WriteTest単位結果格納Index
+    READ_TEST_RESULT_INDEX = 14 # ReadTest数値結果格納Index
+    READ_TEST_RESULT_UNIT_INDEX = 15 # ReadTest単位格納Index

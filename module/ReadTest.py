@@ -25,7 +25,8 @@ class ReadTest(BaseTest):
             result_list = BaseTest.exec_tests(SpeedTestUtil.get_read_test_cmd(parsed_options.debug, parsed_options.target),
                                                            parsed_options.number)
             # 実行結果から必要部分をパースして取得
-            parsed_results, unit = model.Parser.SpeedTestParser.parse_read_test_results(result_list)
+            parsed_results, unit = model.Parser.SpeedTestParser.parse_cmd_results(result_list, model.ValidationConst.ValidateConst.READ_TEST_RESULT_INDEX.value, model.ValidationConst.ValidateConst.READ_TEST_RESULT_UNIT_INDEX.value)
+
 
             # 読み込み速度Avr, Max, Min, 試行回数を指定フォーマットで返す
             return model.Parser.SpeedTestParser.parse_result(parsed_results, parsed_options, unit)
