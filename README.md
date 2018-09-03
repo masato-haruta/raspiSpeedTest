@@ -69,6 +69,7 @@ inspire https://github.com/scottvlaminck/raspberrypi-speedtest
 ### Disk IO Bench
 * `python RunDiskBench.py -n 3 -t '/dev/mmcblk0'`
 
-
+### Disk IO Bench Test
+* `python -m unittest io_bench/test/TestSpeedTestUtils.py`
 
 
