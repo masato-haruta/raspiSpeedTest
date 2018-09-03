@@ -70,9 +70,9 @@ class SpeedTestParser:
         :rtype: list, str
         """
         parsed_results = []
-        for i in range(len(cmd_results)):
+        for i, cmd_result in  enumerate(cmd_results):
             try:
-                tmp_list = cmd_results[i].split(" ")
+                tmp_list = cmd_result.split(" ")
                 parsed_results.append(float(tmp_list[14]))
                 unit = tmp_list[15]
             except CommandResultParseException:
@@ -87,9 +87,9 @@ class SpeedTestParser:
         :rtype: list, str
         """
         parsed_results = []
-        for i in range(len(cmd_results)):
+        for i, cmd_result in enumerate(cmd_results):
             try:
-                tmp_list = cmd_results[i].split(" ")
+                tmp_list = cmd_result.split(" ")
                 parsed_results.append(float(tmp_list[9]))
                 unit = tmp_list[10]
             except CommandResultParseException:
