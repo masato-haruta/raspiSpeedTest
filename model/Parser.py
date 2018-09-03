@@ -70,6 +70,7 @@ class SpeedTestParser:
         :rtype: list, str
         """
         parsed_results = []
+        unit = ""
         for i, cmd_result in enumerate(cmd_results):
             try:
                 tmp_list = cmd_result.split(" ")

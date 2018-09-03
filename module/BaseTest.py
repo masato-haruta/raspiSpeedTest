@@ -1,9 +1,6 @@
 # coding:utf-8
 import subprocess
 
-from exception.CommandResultParseException import CommandResultParseException
-
-
 class BaseTest:
     # 指定回数commandを実行し、結果をListと計測単位で返す
     @staticmethod
