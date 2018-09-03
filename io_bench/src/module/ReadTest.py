@@ -1,11 +1,11 @@
 # coding:utf-8
-from module.BaseTest import BaseTest
-from exception.CommandResultParseException import CommandResultParseException
-from exception.TargetDirectoryNotFoundException import TargetDirectoryNotFoundException
-import model.SpeedTestValidator
-import model.Parser
-import model.ValidationConst
-from util.Utility import SpeedTestUtil
+from io_bench.src.module.BaseTest import BaseTest
+from io_bench.exception.CommandResultParseException import CommandResultParseException
+from io_bench.exception.TargetDirectoryNotFoundException import TargetDirectoryNotFoundException
+import io_bench.src.model.SpeedTestValidator
+import io_bench.src.model.Parser
+import io_bench.src.model.ValidationConst
+from io_bench.src.util.Utility import SpeedTestUtil
 
 
 class ReadTest(BaseTest):
@@ -20,16 +20,16 @@ class ReadTest(BaseTest):
             return
         try:
             # 指定ディレクトリ存在確認
-            model.SpeedTestValidator.SpeedTestValidator.read_test_target_validate(parsed_options.target)
+            io_bench.src.model.SpeedTestValidator.SpeedTestValidator.read_test_target_validate(parsed_options.target)
 
             # 指定試行回数hdparm実行結果リストを取得。
             result_list = BaseTest.exec_tests(SpeedTestUtil.get_read_test_cmd(parsed_options.debug, parsed_options.target),
                                                            parsed_options.number)
             # 実行結果から必要部分をパースして取得
-            parsed_results, unit = model.Parser.SpeedTestParser.parse_cmd_results(result_list, model.ValidationConst.ValidateConst.READ_TEST_RESULT_INDEX.value, model.ValidationConst.ValidateConst.READ_TEST_RESULT_UNIT_INDEX.value)
+            parsed_results, unit = io_bench.src.model.Parser.SpeedTestParser.parse_cmd_results(result_list, io_bench.src.model.ValidationConst.ValidateConst.READ_TEST_RESULT_INDEX.value, io_bench.src.model.ValidationConst.ValidateConst.READ_TEST_RESULT_UNIT_INDEX.value)
 
             # 読み込み速度Avr, Max, Min, 試行回数を指定フォーマットで返す
-            return model.Parser.SpeedTestParser.parse_result(parsed_results, parsed_options, unit)
+            return io_bench.src.model.Parser.SpeedTestParser.parse_result(parsed_results, parsed_options, unit)
         except TargetDirectoryNotFoundException as e:
             raise TargetDirectoryNotFoundException(e)
         except CommandResultParseException as e:

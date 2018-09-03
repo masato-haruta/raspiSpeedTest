@@ -1,10 +1,10 @@
 # coding:utf-8
 import os
 
-from model.ValidationConst import ValidateConst
-from exception.DiskFreeSpaceException import DiskFreeSpaceException
-from exception.TargetDirectoryNotFoundException import TargetDirectoryNotFoundException
-import util.Utility
+from io_bench.src.model.ValidationConst import ValidateConst
+from io_bench.exception.DiskFreeSpaceException import DiskFreeSpaceException
+from io_bench.exception.TargetDirectoryNotFoundException import TargetDirectoryNotFoundException
+import io_bench.src.util.Utility
 
 
 class SpeedTestValidator:
@@ -17,5 +17,5 @@ class SpeedTestValidator:
     # 空き容量確認
     @staticmethod
     def write_test_disk_space_validate():
-        if util.Utility.SpeedTestUtil.get_free_disk_space_gb() <= ValidateConst.MIN_DISC_SPACE.value:
+        if io_bench.src.util.Utility.SpeedTestUtil.get_free_disk_space_gb() <= ValidateConst.MIN_DISC_SPACE.value:
             raise DiskFreeSpaceException("空き容量が不足しているため書き込みテストを実行できません。2GB以上の空きが必要です。")

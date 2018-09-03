@@ -3,9 +3,9 @@ import json
 from argparse import ArgumentParser
 from statistics import mean
 
-from exception.CommandResultParseException import CommandResultParseException
-from model.ValidationConst import ValidateConst
-import util.Utility
+from io_bench.exception.CommandResultParseException import CommandResultParseException
+from io_bench.src.model.ValidationConst import ValidateConst
+import io_bench.src.util.Utility
 
 
 class SpeedTestParser:
@@ -42,7 +42,7 @@ class SpeedTestParser:
                                      action='store_true',
                                      help='debug mode. command replace "echo dd, echo hdparm" result')
         parsed_opts = argument_parser.parse_args()
-        parsed_opts.number = util.Utility.SpeedTestUtil.get_trial_count(parsed_opts.number)
+        parsed_opts.number = io_bench.src.util.Utility.SpeedTestUtil.get_trial_count(parsed_opts.number)
 
         return parsed_opts
 

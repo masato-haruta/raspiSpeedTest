@@ -1,10 +1,10 @@
 # coding:utf-8
-from module.ReadTest import ReadTest
-from module.WriteTest import WriteTest
-from model import Parser
-from exception.CommandResultParseException import CommandResultParseException
-from exception.DiskFreeSpaceException import DiskFreeSpaceException
-from exception.TargetDirectoryNotFoundException import TargetDirectoryNotFoundException
+from io_bench.src.module.ReadTest import ReadTest
+from io_bench.src.module.WriteTest import WriteTest
+from io_bench.src.model import Parser
+from io_bench.exception.CommandResultParseException import CommandResultParseException
+from io_bench.exception.DiskFreeSpaceException import DiskFreeSpaceException
+from io_bench.exception.TargetDirectoryNotFoundException import TargetDirectoryNotFoundException
 
 if __name__ == '__main__':
     parsedOpts = Parser.SpeedTestParser().parse_options()  # コマンドオプション解析

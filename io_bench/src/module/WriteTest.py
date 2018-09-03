@@ -1,11 +1,11 @@
 # coding:utf-8
-from exception.CommandResultParseException import CommandResultParseException
-from module.BaseTest import BaseTest
-from exception.DiskFreeSpaceException import DiskFreeSpaceException
-import model.SpeedTestValidator
-import model.Parser
-import model.ValidationConst
-from util.Utility import SpeedTestUtil
+from io_bench.exception.CommandResultParseException import CommandResultParseException
+from io_bench.src.module.BaseTest import BaseTest
+from io_bench.exception.DiskFreeSpaceException import DiskFreeSpaceException
+import io_bench.src.model.SpeedTestValidator
+import io_bench.src.model.Parser
+import io_bench.src.model.ValidationConst
+from io_bench.src.util.Utility import SpeedTestUtil
 
 
 class WriteTest(BaseTest):
@@ -20,16 +20,16 @@ class WriteTest(BaseTest):
             return
         try:
             # コマンド実行可能かをディスク空き容量確認
-            model.SpeedTestValidator.SpeedTestValidator.write_test_disk_space_validate()
+            io_bench.src.model.SpeedTestValidator.SpeedTestValidator.write_test_disk_space_validate()
 
             # 指定試行回数dd実行結果リストを取得。
             result_list = BaseTest.exec_tests(SpeedTestUtil.get_write_test_cmd(parsed_options.debug), parsed_options.number)
 
             # 実行結果から必要部分をパースして取得
-            parsed_results, unit = model.Parser.SpeedTestParser.parse_cmd_results(result_list, model.ValidationConst.ValidateConst.WRITE_TEST_RESULT_INDEX.value, model.ValidationConst.ValidateConst.WRITE_TEST_RESULT_UNIT_INDEX.value)
+            parsed_results, unit = io_bench.src.model.Parser.SpeedTestParser.parse_cmd_results(result_list, io_bench.src.model.ValidationConst.ValidateConst.WRITE_TEST_RESULT_INDEX.value, io_bench.src.model.ValidationConst.ValidateConst.WRITE_TEST_RESULT_UNIT_INDEX.value)
 
             # 書き込み速度Max, Min, Avr結果を指定フォーマットで返す
-            return model.Parser.SpeedTestParser.parse_result(parsed_results, parsed_options, unit)
+            return io_bench.src.model.Parser.SpeedTestParser.parse_result(parsed_results, parsed_options, unit)
         except DiskFreeSpaceException as e:
             raise DiskFreeSpaceException(e)
         except CommandResultParseException as e:

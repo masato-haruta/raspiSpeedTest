@@ -2,7 +2,7 @@
 import shutil
 import os
 
-from model import ValidationConst
+from io_bench.src.model import ValidationConst
 
 
 class SpeedTestUtil:

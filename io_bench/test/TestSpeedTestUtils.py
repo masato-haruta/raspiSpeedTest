@@ -1,7 +1,9 @@
 # coding:utf-8
 import unittest
-from util.Utility import SpeedTestUtil
-from model.ValidationConst import ValidateConst
+# from src.util.Utility import SpeedTestUtil
+# from src.model.ValidationConst import ValidateConst
+from io_bench.src.model.ValidationConst import ValidateConst
+from io_bench.src.util.Utility import SpeedTestUtil
 
 
 class TestSpeedTestUtils(unittest.TestCase):
