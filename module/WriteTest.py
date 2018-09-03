@@ -32,9 +32,7 @@ class WriteTest(BaseTest):
             return model.Parser.SpeedTestParser.parse_result(parsed_results, parsed_options, unit)
         except DiskFreeSpaceException as e:
             raise DiskFreeSpaceException(e)
-        except ValueError as e:
-            raise CommandResultParseException(e)
-        except IndexError as e:
+        except CommandResultParseException as e:
             raise CommandResultParseException(e)
         finally:
             # 1GBのファイルを存在する場合は削除

@@ -32,7 +32,5 @@ class ReadTest(BaseTest):
             return model.Parser.SpeedTestParser.parse_result(parsed_results, parsed_options, unit)
         except TargetDirectoryNotFoundException as e:
             raise TargetDirectoryNotFoundException(e)
-        except ValueError as e:
-            raise CommandResultParseException(e)
-        except IndexError as e:
+        except CommandResultParseException as e:
             raise CommandResultParseException(e)
