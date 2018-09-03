@@ -4,6 +4,7 @@ from exception.CommandResultParseException import CommandResultParseException
 from exception.TargetDirectoryNotFoundException import TargetDirectoryNotFoundException
 import model.SpeedTestValidator
 import model.Parser
+import model.ValidationConst
 from util.Utility import SpeedTestUtil
 
 
@@ -27,10 +28,11 @@ class ReadTest(BaseTest):
             # 実行結果から必要部分をパースして取得
             parsed_results, unit = model.Parser.SpeedTestParser.parse_cmd_results(result_list, model.ValidationConst.ValidateConst.READ_TEST_RESULT_INDEX.value, model.ValidationConst.ValidateConst.READ_TEST_RESULT_UNIT_INDEX.value)
 
-
             # 読み込み速度Avr, Max, Min, 試行回数を指定フォーマットで返す
             return model.Parser.SpeedTestParser.parse_result(parsed_results, parsed_options, unit)
         except TargetDirectoryNotFoundException as e:
             raise TargetDirectoryNotFoundException(e)
-        except CommandResultParseException as e:
+        except ValueError as e:
+            raise CommandResultParseException(e)
+        except IndexError as e:
             raise CommandResultParseException(e)
